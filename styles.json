@@ -1,0 +1,17 @@
+{
+  "style":[
+      "span.num { position: absolute; color: #999999; }"
+    , "p.indent { position: relative; margin-left: 2em; margin-top: 1.5em; }"
+    , "div.footnotes { border-top: 1px dotted black; padding-top: 1em; }"
+    , "div.footnote > p { margin-left: 2em; }"
+    , "div.prelims { background: none repeat scroll 0 0 #eeeeee; border: 1px solid #dddddd; padding-top: 1.5em;}"
+    , "div.prelims p { position: relative; margin-left: 2em; margin-right: 2em; margin-top: 0em; }"
+    , "p.parties { text-align: center; font-size: 1.25em; font-weight: bold; }"
+    , "div.footnote a.footnote { color: #000099; position: absolute;}"
+    , "p a.footnote { vertical-align: text-top; font-size: 70%; color: #000099; }"
+    , "h1 { font-size: 1.25em; padding-top: 0.75em; padding-bottom: 0.75em; font-weight: bold;}"
+    , "h2 { font-size: 1.25em; font-weight: bold; } span.star-pagination { color: #999999;  }"
+    , "span.star-pagination::after { display: inline; position: relative; content: '-'; float: left; left: -1em; font-size: 1em; color: #8a1f11; width: 0px; }"
+    , "blockquote span.star-pagination::after { left: -2.5em; }"
+  ]
+}

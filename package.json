@@ -1,0 +1,22 @@
+{
+  "name": "node-courtlistener",
+  "version": "0.0.13",
+  "description": "nodejs module for courtlistener",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zornstar/node-courtlistener"
+  },
+  "keywords": ["caselaw","courtlistener"],
+  "author": "Matthew Zorn <zornstar@gmail.com>",
+  "license": "Apache License 2.0",
+  "bugs": {
+    "url": "https://github.com/zornstar/node-courtlistener/issues"
+  },
+  "dependencies": {
+    "request":"~2.39.0",
+    "diva"   :"~0.0.31",
+    "rsvp"   :"~3.0.9",
+    "chalk"  :"~0.5.1"
+  }
+}
