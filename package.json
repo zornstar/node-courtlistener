@@ -1,6 +1,6 @@
 {
   "name": "node-courtlistener",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "nodejs module for courtlistener",
   "main": "index.js",
   "repository": {

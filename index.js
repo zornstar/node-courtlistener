@@ -32,7 +32,9 @@ function citestring(c) {
 }
 
 function formHTML(body, style) {
-  return '<html><head><style>' + style + '</style><body>' + body + '</body></html>';
+  return '<html><head><meta charset="utf-8"></head><style>' + style +
+          '</style><body>' + body +
+          '</body></html>';
 }
 
 function resolvePaths(html) {
@@ -100,8 +102,12 @@ CLClient.prototype._generateCasePromise = function(str) {
 
           if(html) {
             html = resolvePaths(html)
-            fs.writeFileSync(savePath, html, 'utf8');
-            that.log('Downloaded ' + cite, 'yellow');
+            fs.writeFile(savePath, html, 'utf8', function(err) {
+              if(err) {
+                reject('Download error')
+              }
+              that.log('Downloaded ' + cite, 'yellow');
+            });
             resolve(json)
           } else {
             var str = 'No html found for ' + cite + '(' + name + ')';
@@ -125,8 +131,10 @@ CLClient.prototype._generateCasePromise = function(str) {
       request.get(options, function(err, resp, body) {
         if(err) {
           that.log('Error getting ' + str + '.', 'red');
-          resolve('Error getting ' + str + '.');
-        } else {
+          reject(err);
+        } else if(resp.statusCode == 401) {
+          reject(401);
+        } else if(resp.statusCode == 200) {
           var
               json = JSON.parse(body)
             , objects = json["objects"]
@@ -235,6 +243,8 @@ CLClient.prototype.getCases = function(cases) {
           setTimeout( function() {
             chainPromises()
             } , that.throttle)
+        }).catch(function(err) {
+          reject(err);
         });
       }
       chainPromises();
@@ -258,12 +268,19 @@ CLClient.prototype.getCitations = function(citations) {
 
       function chainPromises() {
         if(promises.length === 0) {
-          resolve(citations.length === 1 ? citations[0] : citations);
+          resolve(results);
           return;
         }
-        return promises.shift()().then( setTimeout( function () {
-          chainPromises()
-        }, that.throttle))
+        return promises.shift()().then( function(result) {
+          if( !_.isEmpty(result) ) {
+            results.push(result)
+          }
+          setTimeout( function() {
+            chainPromises()
+            } , that.throttle)
+        }).catch(function(err) {
+          reject(err);
+        });
       }
       chainPromises();
     });
